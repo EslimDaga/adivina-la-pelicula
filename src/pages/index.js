@@ -22,10 +22,10 @@ export default function Home() {
 					content="📱🎥🔍 ¡Descubre cuál es tu película favorita con solo emojis! Con nuestro producto digital, podrás adivinar películas mientras te diviertes. Simplemente elige los emojis que mejor representen la película que tienes en mente y déjanos adivinar qué es. ¿Estás listo para un juego emocionante? 🎬🕵️‍♀️💡"
 				/>
 			</Head>
-			Movie to Emoji
-			<button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-				toggle
-			</button>
+			<div className="w-screen h-screen">
+				{/* Two cards */}
+				<div className="flex">Peliculas con emojis</div>
+			</div>
 		</div>
 	);
 }
