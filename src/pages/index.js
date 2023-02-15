@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
+import { PuzzleIcon } from "@heroicons/react/solid";
 
 const BackgroundImage = styled.div`
 	background-repeat: no-repeat;
@@ -30,10 +31,23 @@ export default function Home() {
 	return (
 		<div>
 			<Head>
-				<title>Peliculas con emojis 🥳</title>
+				<title>Películas con emojis 🥳</title>
 			</Head>
 			<BackgroundImage />
 			<ImageGradient />
+			{/* Center title */}
+			<div className="fixed flex flex-col gap-4 items-center justify-center w-full h-full top-0">
+				<h1 className="text-6xl font-extrabold text-white text-center px-4">
+					Películas con emojis 🥳
+				</h1>
+				<p className="text-3xl font-normal text-white text-center px-4">
+					¡Descubre cuál es tu película favorita con solo emojis!
+				</p>
+				<button className="flex items-center gap-2 bg-white hover:bg-yellow-500 text-black font-bold py-4 px-6 rounded-full">
+					<PuzzleIcon className="h-6 w-6" />
+					¡Jugar ahora!
+				</button>
+			</div>
 		</div>
 	);
 }
