@@ -49,9 +49,15 @@ export default function Home() {
 				response.data.results[
 					Math.floor(Math.random() * response.data.results.length)
 				];
-			setBackdrop(randomMovie.backdrop_path);
-			setPortrait(randomMovie.poster_path);
-			setLoading(false);
+
+			if (
+				randomMovie.original_language === "en" ||
+				randomMovie.original_language === "es"
+			) {
+				setBackdrop(randomMovie.backdrop_path);
+				setPortrait(randomMovie.poster_path);
+				setLoading(false);
+			}
 		});
 	}, []);
 
