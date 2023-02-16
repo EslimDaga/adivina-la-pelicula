@@ -1,15 +1,20 @@
+import { useEffect, useState } from "react";
+import { PuzzleIcon } from "@heroicons/react/solid";
 import Head from "next/head";
 import styled from "styled-components";
-import { PuzzleIcon } from "@heroicons/react/solid";
+import axios from "axios";
+
+const url_image = "https://image.tmdb.org/t/p/original";
+const url = "https://api.themoviedb.org/3/movie/popular";
 
 const BackgroundImage = styled.div`
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
 	height: 100vh;
-	background-image: url("https://image.tmdb.org/t/p/original/9Rq14Eyrf7Tu1xk0Pl7VcNbNh1n.jpg");
+	background-image: url("${url_image}/${props => props.backdrop_path}");
 	@media screen and (max-width: 768px) {
-		background-image: url("https://image.tmdb.org/t/p/original/juoinefK6tMbjwJhRpRvbAAmrTB.jpg");
+		background-image: url("${url_image}/${props => props.portrait_path}");
 	}
 `;
 
@@ -28,12 +33,31 @@ const ImageGradient = styled.div`
 `;
 
 export default function Home() {
+	const [backdrop, setBackdrop] = useState("");
+	const [portrait, setPortrait] = useState("");
+
+	useEffect(() => {
+		const randomPage = Math.floor(Math.random() * 500) + 1;
+
+		const getMovies = axios.get(
+			`${url}?api_key=596241b05bdf73505bf12b0b05225055&language=es-ES&page=${randomPage}`
+		);
+		getMovies.then(response => {
+			const randomMovie =
+				response.data.results[
+					Math.floor(Math.random() * response.data.results.length)
+				];
+			setBackdrop(randomMovie.backdrop_path);
+			setPortrait(randomMovie.poster_path);
+		});
+	}, []);
+
 	return (
 		<div>
 			<Head>
 				<title>Películas con emojis 🥳</title>
 			</Head>
-			<BackgroundImage />
+			<BackgroundImage backdrop_path={backdrop} portrait_path={portrait} />
 			<ImageGradient />
 			{/* Center title */}
 			<div className="fixed flex flex-col gap-4 items-center justify-center w-full h-full top-0">
