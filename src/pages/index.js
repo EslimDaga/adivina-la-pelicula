@@ -37,6 +37,7 @@ export default function Home() {
 	const [backdrop, setBackdrop] = useState("");
 	const [portrait, setPortrait] = useState("");
 	const [loading, setLoading] = useState(true);
+	const [movie, setMovie] = useState({});
 
 	useEffect(() => {
 		const randomPage = Math.floor(Math.random() * 500) + 1;
@@ -50,13 +51,16 @@ export default function Home() {
 					Math.floor(Math.random() * response.data.results.length)
 				];
 
-			if (
-				randomMovie.original_language === "en" ||
-				randomMovie.original_language === "es"
-			) {
-				setBackdrop(randomMovie.backdrop_path);
-				setPortrait(randomMovie.poster_path);
-				setLoading(false);
+			if (randomMovie.backdrop_path) {
+				if (
+					randomMovie.original_language === "en" ||
+					randomMovie.original_language === "es"
+				) {
+					setBackdrop(randomMovie.backdrop_path);
+					setPortrait(randomMovie.poster_path);
+					setMovie(randomMovie);
+					setLoading(false);
+				}
 			}
 		});
 	}, []);
