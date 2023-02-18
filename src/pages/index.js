@@ -10,6 +10,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 const url_image = "https://image.tmdb.org/t/p/original";
 const url = "https://api.themoviedb.org/3/movie/popular";
+const url_genders = "https://api.themoviedb.org/3/genre/movie/list";
 
 const ImageGradient = styled.div`
 	position: absolute;
@@ -29,6 +30,7 @@ export default function Home() {
 	const [backdrop, setBackdrop] = useState("");
 	const [loading, setLoading] = useState(true);
 	const [movie, setMovie] = useState({});
+	const [genders, setGenders] = useState([]);
 
 	useEffect(() => {
 		const randomPage = Math.floor(Math.random() * 500) + 1;
@@ -36,6 +38,11 @@ export default function Home() {
 		const getMovies = axios.get(
 			`${url}?api_key=596241b05bdf73505bf12b0b05225055&language=es-ES&page=${randomPage}`
 		);
+
+		const getGenders = axios.get(
+			`${url_genders}?api_key=596241b05bdf73505bf12b0b05225055&language=es-ES`
+		);
+
 		getMovies.then(response => {
 			const randomMovie =
 				response.data.results[
@@ -52,6 +59,17 @@ export default function Home() {
 					setLoading(false);
 				}
 			}
+		});
+
+		getGenders.then(response => {
+			setGenders(
+				response.data.genres.map(gender => {
+					return {
+						value: gender.id,
+						label: gender.name,
+					};
+				})
+			);
 		});
 	}, []);
 
@@ -83,7 +101,6 @@ export default function Home() {
 						<ReactSelect
 							className="w-96 mx-6"
 							placeholder="Selecciona un género"
-							//Disabled search
 							isSearchable={false}
 							styles={{
 								container: (provided, state) => ({
@@ -136,7 +153,7 @@ export default function Home() {
 									...provided,
 									paddingBottom: "0",
 									paddingTop: "0",
-									borderRadius: "0.75rem",
+									borderRadius: "0.75rem 0 0 0.75rem",
 								}),
 								option: (provided, state) => ({
 									...provided,
@@ -153,14 +170,7 @@ export default function Home() {
 									backgroundColor: state.isSelected ? "#fbbf24" : "#FFFFFF",
 								}),
 							}}
-							options={[
-								{ value: "action", label: "Acción" },
-								{ value: "adventure", label: "Aventura" },
-								{ value: "animation", label: "Animación" },
-								{ value: "comedy", label: "Comedia" },
-								{ value: "crime", label: "Crimen" },
-								{ value: "documentary", label: "Documental" },
-							]}
+							options={genders}
 						/>
 						<button className="flex items-center gap-2 bg-white hover:bg-yellow-500 text-black font-bold py-4 px-6 rounded-xl">
 							<PuzzleIcon className="h-6 w-6" />
