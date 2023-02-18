@@ -167,7 +167,10 @@ export default function Home() {
 									"&:hover": {
 										backgroundColor: "#FEF08A",
 									},
-									backgroundColor: state.isSelected ? "#fbbf24" : "#FFFFFF",
+									backgroundColor: state.isSelected ? "#FBBF24" : "#FFFFFF",
+									"&:active": {
+										backgroundColor: "#FBBF24",
+									},
 								}),
 							}}
 							options={genders}
