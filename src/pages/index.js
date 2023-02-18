@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { InfinitySpin } from "react-loader-spinner";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { PuzzleIcon } from "@heroicons/react/solid";
+import ReactSelect from "react-select";
 import Head from "next/head";
 import styled from "styled-components";
 import axios from "axios";
@@ -79,7 +80,89 @@ export default function Home() {
 						<p className="text-3xl font-normal text-white text-center px-4">
 							¡Descubre cuál es la película con solo emojis!
 						</p>
-						<button className="flex items-center gap-2 bg-white hover:bg-yellow-500 text-black font-bold py-4 px-6 rounded-full">
+						<ReactSelect
+							className="w-96 mx-6"
+							placeholder="Selecciona un género"
+							//Disabled search
+							isSearchable={false}
+							styles={{
+								container: (provided, state) => ({
+									...provided,
+									borderRadius: "0.75rem",
+									height: "56px",
+									cursor: "pointer",
+									paddingLeft: "1rem",
+									paddingRight: "1rem",
+								}),
+								control: (provided, state) => ({
+									...provided,
+									border: "none",
+									boxShadow: "none",
+									backgroundColor: "#FFFFFF",
+									borderRadius: "0.75rem",
+									height: "56px",
+									paddingLeft: "1rem",
+									cursor: "pointer",
+								}),
+								placeholder: (provided, state) => ({
+									...provided,
+									color: "#000000",
+									fontWeight: "600",
+								}),
+								singleValue: (provided, state) => ({
+									...provided,
+									color: "#000000",
+									fontWeight: "600",
+								}),
+								valueContainer: (provided, state) => ({
+									...provided,
+									padding: "0",
+								}),
+								indicatorSeparator: (provided, state) => ({
+									...provided,
+									backgroundColor: "#000000",
+									width: "2px",
+								}),
+								dropdownIndicator: (provided, state) => ({
+									...provided,
+									color: "#000000",
+								}),
+								menu: (provided, state) => ({
+									...provided,
+									borderRadius: "0.75rem",
+									left: "0",
+								}),
+								menuList: (provided, state) => ({
+									...provided,
+									paddingBottom: "0",
+									paddingTop: "0",
+									borderRadius: "0.75rem",
+								}),
+								option: (provided, state) => ({
+									...provided,
+									color: "#000000",
+									cursor: "pointer",
+									paddingLeft: "1rem",
+									paddingRight: "1rem",
+									paddingTop: "0.5rem",
+									paddingBottom: "0.5rem",
+									backgroundColor: state.isFocused ? "#FEF08A" : "#FFFFFF",
+									"&:hover": {
+										backgroundColor: "#FEF08A",
+									},
+									backgroundColor: state.isSelected ? "#fbbf24" : "#FFFFFF",
+								}),
+							}}
+							options={[
+								{ value: "action", label: "Acción" },
+								{ value: "adventure", label: "Aventura" },
+								{ value: "animation", label: "Animación" },
+								{ value: "comedy", label: "Comedia" },
+								{ value: "crime", label: "Crimen" },
+								{ value: "documentary", label: "Documental" },
+							]}
+						/>
+						<button className="flex items-center gap-2 bg-white hover:bg-yellow-500 text-black font-bold py-4 px-6 rounded-xl">
 							<PuzzleIcon className="h-6 w-6" />
 							¡Jugar ahora!
 						</button>
