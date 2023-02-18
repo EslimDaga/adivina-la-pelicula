@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { InfinitySpin } from "react-loader-spinner";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { PuzzleIcon } from "@heroicons/react/solid";
+import toast, { Toaster } from "react-hot-toast";
 import ReactSelect from "react-select";
 import Head from "next/head";
 import styled from "styled-components";
@@ -31,6 +32,7 @@ export default function Home() {
 	const [loading, setLoading] = useState(true);
 	const [movie, setMovie] = useState({});
 	const [genders, setGenders] = useState([]);
+	const [selectedGender, setSelectedGender] = useState(null);
 
 	useEffect(() => {
 		const randomPage = Math.floor(Math.random() * 500) + 1;
@@ -72,6 +74,13 @@ export default function Home() {
 			);
 		});
 	}, []);
+
+	const handleSubmit = _ => {
+		if (selectedGender === null) {
+			toast.error("Debes seleccionar un género");
+			return;
+		}
+	};
 
 	return (
 		<div className="bg-yellow-500">
@@ -174,14 +183,21 @@ export default function Home() {
 								}),
 							}}
 							options={genders}
+							onChange={e => {
+								setSelectedGender(e.value);
+							}}
 						/>
-						<button className="flex items-center gap-2 bg-white hover:bg-yellow-500 text-black font-bold py-4 px-6 rounded-xl">
+						<button
+							onClick={handleSubmit}
+							className="flex items-center gap-2 bg-white hover:bg-yellow-500 text-black font-bold py-4 px-6 rounded-xl"
+						>
 							<PuzzleIcon className="h-6 w-6" />
 							¡Jugar ahora!
 						</button>
 					</div>
 				</div>
 			)}
+			<Toaster />
 		</div>
 	);
 }
