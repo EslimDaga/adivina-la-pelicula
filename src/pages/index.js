@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { InfinitySpin } from "react-loader-spinner";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { PuzzleIcon } from "@heroicons/react/solid";
+import { useRouter } from "next/router";
 import toast, { Toaster } from "react-hot-toast";
 import ReactSelect from "react-select";
 import Head from "next/head";
@@ -27,7 +28,9 @@ const ImageGradient = styled.div`
 	bottom: 0;
 `;
 
-export default function Home() {
+const Home = () => {
+	const router = useRouter();
+
 	const [backdrop, setBackdrop] = useState("");
 	const [loading, setLoading] = useState(true);
 	const [movie, setMovie] = useState({});
@@ -80,6 +83,14 @@ export default function Home() {
 			toast.error("Debes seleccionar un género");
 			return;
 		}
+
+		router.push({
+			pathname: "/movies",
+			query: {
+				gender_id: selectedGender.value,
+				gender_name: selectedGender.label,
+			},
+		});
 	};
 
 	return (
@@ -184,7 +195,7 @@ export default function Home() {
 							}}
 							options={genders}
 							onChange={e => {
-								setSelectedGender(e.value);
+								setSelectedGender(e);
 							}}
 						/>
 						<button
@@ -200,4 +211,6 @@ export default function Home() {
 			<Toaster />
 		</div>
 	);
-}
+};
+
+export default Home;
