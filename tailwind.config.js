@@ -12,6 +12,9 @@ module.exports = {
 			fontFamily: {
 				poppins: ["Poppins", "sans-serif"],
 			},
+			boxShadow: {
+				"3xl": "0 25px 50px -12px rgb(0 0 0 / 1.25)",
+			},
 		},
 	},
 	plugins: [require("daisyui")],
