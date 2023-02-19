@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { ArrowLeftIcon } from "@heroicons/react/solid";
+import { ArrowLeftIcon, RefreshIcon } from "@heroicons/react/solid";
 import { InfinitySpin } from "react-loader-spinner";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
@@ -15,7 +15,9 @@ const Movie = () => {
 	const router = useRouter();
 	const [movie, setMovie] = useState({});
 	const [loading, setLoading] = useState(true);
+
 	const { gender_id } = router.query;
+
 	const randomPage = Math.floor(Math.random() * 500) + 1;
 
 	useEffect(() => {
@@ -31,10 +33,8 @@ const Movie = () => {
 
 			if (randomMovie.backdrop_path && randomMovie.original_language === "en") {
 				setMovie(randomMovie);
-				setLoading(false);
-			} else {
-				router.push("/");
 			}
+			setLoading(false);
 		});
 	}, []);
 
@@ -50,18 +50,36 @@ const Movie = () => {
 				</button>
 			</Link>
 
-			<div className="flex flex-col items-center justify-center h-full">
+			<div className="flex flex-col gap-5 items-center justify-center h-full">
 				{loading ? (
 					<div className="w-screen h-screen flex items-center justify-center">
 						<InfinitySpin width="200" color="#FFFFFF" />
 					</div>
-				) : (
+				) : movie.backdrop_path ? (
 					<LazyLoadImage
 						effect="blur"
 						src={`${url_image}${movie.backdrop_path}`}
 						alt={`${url_image}${movie.backdrop_path}`}
 						className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-xl"
 					/>
+				) : (
+					<>
+						<LazyLoadImage
+							effect="blur"
+							src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2022/05/error-404-2716479.jpg"
+							alt="Error 404"
+							className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-xl"
+						/>
+						<p className="text-gray-900">
+							La película no tiene imagen de fondo. Intenta otra vez.
+						</p>
+						<button
+							onClick={() => router.reload()}
+							className="bg-white hover:bg-gray-700 text-gray-900 hover:text-white font-bold py-4 px-4 rounded-xl flex gap-2 items-center"
+						>
+							Reintentar <RefreshIcon className="h-6 w-6" />
+						</button>
+					</>
 				)}
 			</div>
 		</div>
