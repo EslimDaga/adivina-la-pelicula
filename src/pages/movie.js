@@ -63,7 +63,7 @@ const Movie = () => {
 						effect="blur"
 						src={`${url_image}${movie.backdrop_path}`}
 						alt={`${url_image}${movie.backdrop_path}`}
-						className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-2xl"
+						className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-3xl"
 					/>
 				) : (
 					<>
@@ -71,7 +71,7 @@ const Movie = () => {
 							effect="blur"
 							src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2022/05/error-404-2716479.jpg"
 							alt="Error 404"
-							className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-2xl"
+							className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-3xl"
 						/>
 						<p className="text-gray-900">
 							La película no tiene imagen de fondo. Intenta otra vez.
