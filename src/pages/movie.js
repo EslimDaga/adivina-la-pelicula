@@ -44,7 +44,10 @@ const Movie = () => {
 				<title>Películas con emojis 🥳</title>
 			</Head>
 
-			<Link href="/" className="fixed top-4 left-4 lg:bottom-8 lg:right-8 z-50">
+			<Link
+				href="/"
+				className="absolute max-w-max max-h-max top-4 left-4 lg:bottom-8 lg:right-8 z-50"
+			>
 				<button className="bg-white hover:bg-gray-700 text-gray-900 hover:text-white font-bold py-4 px-4 rounded-xl flex gap-2 items-center">
 					<ArrowLeftIcon className="h-6 w-6" /> Volver al inicio
 				</button>
@@ -60,7 +63,7 @@ const Movie = () => {
 						effect="blur"
 						src={`${url_image}${movie.backdrop_path}`}
 						alt={`${url_image}${movie.backdrop_path}`}
-						className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-xl"
+						className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-2xl"
 					/>
 				) : (
 					<>
@@ -68,7 +71,7 @@ const Movie = () => {
 							effect="blur"
 							src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2022/05/error-404-2716479.jpg"
 							alt="Error 404"
-							className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-xl"
+							className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-2xl"
 						/>
 						<p className="text-gray-900">
 							La película no tiene imagen de fondo. Intenta otra vez.
