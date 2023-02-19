@@ -85,7 +85,7 @@ const Home = () => {
 		}
 
 		router.push({
-			pathname: "/movies",
+			pathname: "/movie",
 			query: {
 				gender_id: selectedGender.value,
 				gender_name: selectedGender.label,
