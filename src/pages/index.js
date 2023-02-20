@@ -38,6 +38,13 @@ const Home = () => {
 	const [selectedGender, setSelectedGender] = useState(null);
 
 	useEffect(() => {
+		document.body.style.overflow = "hidden";
+		return () => {
+			document.body.style.overflow = "unset";
+		};
+	}, []);
+
+	useEffect(() => {
 		const randomPage = Math.floor(Math.random() * 500) + 1;
 
 		const getMovies = axios.get(
@@ -103,7 +110,7 @@ const Home = () => {
 					<InfinitySpin width="200" color="#FFFFFF" />
 				</div>
 			) : (
-				<div className="w-screen h-screen flex items-center justify-center">
+				<div className="w-screen flex items-center justify-center">
 					<LazyLoadImage
 						effect="blur"
 						src={`${url_image}${backdrop}`}
@@ -112,10 +119,10 @@ const Home = () => {
 					/>
 					<ImageGradient />
 					<div className="fixed flex flex-col gap-4 items-center justify-center w-full h-full top-0">
-						<h1 className="text-6xl font-extrabold text-white text-center px-4">
+						<h1 className="text-3xl lg:text-6xl font-extrabold text-white text-center px-4">
 							Películas con emojis 🥳
 						</h1>
-						<p className="text-3xl font-normal text-white text-center px-4">
+						<p className="text-1xl lg:text-3xl font-normal text-white text-center px-4">
 							¡Descubre cuál es la película con solo emojis!
 						</p>
 						<ReactSelect
@@ -168,12 +175,15 @@ const Home = () => {
 									...provided,
 									borderRadius: "0.75rem",
 									left: "0",
+									position: "relative",
+									top: "0",
 								}),
 								menuList: (provided, state) => ({
 									...provided,
 									paddingBottom: "0",
 									paddingTop: "0",
 									borderRadius: "0.75rem 0 0 0.75rem",
+									height: "200px",
 								}),
 								option: (provided, state) => ({
 									...provided,
@@ -191,6 +201,15 @@ const Home = () => {
 									"&:active": {
 										backgroundColor: "#FBBF24",
 									},
+									borderTopRightRadius:
+										state.options[0].value === state.data.value
+											? "0.75rem"
+											: "0",
+									borderBottomRightRadius:
+										state.options[state.options.length - 1].value ===
+										state.data.value
+											? "0.75rem"
+											: "0",
 								}),
 							}}
 							options={genders}
@@ -200,7 +219,13 @@ const Home = () => {
 						/>
 						<button
 							onClick={handleSubmit}
-							className="flex items-center gap-2 bg-white hover:bg-yellow-500 text-black font-bold py-4 px-6 rounded-xl"
+							className={
+								"flex items-center gap-2 bg-white  text-black font-bold py-4 px-6 rounded-xl" +
+								(selectedGender === null
+									? " opacity-70 cursor-not-allowed hover:bg-none"
+									: " hover:bg-yellow-500")
+							}
+							disabled={selectedGender === null}
 						>
 							<PuzzleIcon className="h-6 w-6" />
 							¡Jugar ahora!
