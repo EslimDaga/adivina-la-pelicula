@@ -111,13 +111,27 @@ const Home = () => {
 				</div>
 			) : (
 				<div className="w-screen flex items-center justify-center">
-					<LazyLoadImage
-						effect="blur"
-						src={`${url_image}${backdrop}`}
-						alt={`${url_image}${backdrop}`}
-						className="w-screen h-screen object-cover"
-					/>
-					<ImageGradient />
+					{backdrop ? (
+						<>
+							<LazyLoadImage
+								effect="blur"
+								src={`${url_image}${backdrop}`}
+								alt={`${url_image}${backdrop}`}
+								className="w-screen h-screen object-cover"
+							/>
+							<ImageGradient />
+						</>
+					) : (
+						<>
+							<LazyLoadImage
+								effect="blur"
+								src={`${url_image}/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg`}
+								alt={`${url_image}/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg`}
+								className="w-screen h-screen object-cover"
+							/>
+							<ImageGradient />
+						</>
+					)}
 					<div className="fixed flex flex-col gap-4 items-center justify-center w-full h-full top-0">
 						<h1 className="text-3xl lg:text-6xl font-extrabold text-white text-center px-4">
 							Películas con emojis 🥳
