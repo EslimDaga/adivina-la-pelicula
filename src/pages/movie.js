@@ -7,11 +7,24 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ArrowLeftIcon, FilmIcon } from "@heroicons/react/solid";
 import { InfinitySpin } from "react-loader-spinner";
 import { toast, Toaster } from "react-hot-toast";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 const url_image = "https://image.tmdb.org/t/p/original";
 const url_movies_by_gender = "https://api.themoviedb.org/3/discover/movie";
 const url_open_ai = "https://api.openai.com/v1/completions";
+
+const renderTime = ({ remainingTime }) => {
+	if (remainingTime === 0) {
+		return <div className="timer"> 🙁 </div>;
+	}
+
+	return (
+		<div className="timer">
+			<div className="text-gray-900">{remainingTime}</div>
+		</div>
+	);
+};
 
 const Movie = () => {
 	const router = useRouter();
@@ -104,14 +117,32 @@ const Movie = () => {
 				<title>Películas con emojis 🥳</title>
 			</Head>
 
-			<Link
-				href="/"
-				className="absolute max-w-max max-h-max top-4 left-4 lg:bottom-8 lg:right-8 z-50"
-			>
-				<button className="bg-white text-gray-900 font-semibold text-sm py-4 px-4 rounded-xl flex gap-2 items-center">
-					<ArrowLeftIcon className="h-6 w-6" /> Volver
-				</button>
-			</Link>
+			<div>
+				<Link
+					href="/"
+					className="absolute max-w-max max-h-max top-4 left-4 lg:bottom-8 lg:right-8 z-50"
+				>
+					<button className="bg-white text-gray-900 font-semibold text-sm py-4 px-4 rounded-xl flex gap-2 items-center">
+						<ArrowLeftIcon className="h-6 w-6" /> Volver
+					</button>
+				</Link>
+
+				{movie.backdrop_path && (
+					<div className="absolute max-w-max max-h-max top-4 right-4 lg:bottom-8 lg:right-8 z-50">
+						<CountdownCircleTimer
+							isPlaying
+							size={65}
+							duration={10}
+							colors={["#22c55e", "#f97316", "#ca8a04", "#b91c1c"]}
+							colorsTime={[10, 6, 3, 0]}
+							onComplete={() => handleNextMovie()}
+						>
+							{renderTime}
+						</CountdownCircleTimer>
+					</div>
+				)}
+			</div>
+
 			<div className="flex flex-col gap-14 items-center justify-center h-screen">
 				{loading ? (
 					<div className="w-screen h-screen flex items-center justify-center">
