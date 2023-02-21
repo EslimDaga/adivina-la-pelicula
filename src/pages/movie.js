@@ -66,6 +66,8 @@ const Movie = () => {
 					setPosibleMovies(posibleMovies);
 
 					setMovie(randomMovie);
+				} else {
+					getMovies();
 				}
 				setLoading(false);
 			});
@@ -174,18 +176,9 @@ const Movie = () => {
 					</>
 				) : (
 					<>
-						<LazyLoadImage
-							effect="blur"
-							src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2022/05/error-404-2716479.jpg"
-							alt="Error 404"
-							className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-3xl"
-						/>
-						<button
-							onClick={handleNextMovie}
-							className="bg-white text-gray-900 font-semibold text-sm py-4 px-4 rounded-xl flex gap-2 items-center"
-						>
-							<FilmIcon className="h-6 w-6" /> Siguiente película
-						</button>
+						<div className="w-screen h-screen flex items-center justify-center">
+							<InfinitySpin width="200" color="#FFFFFF" />
+						</div>
 					</>
 				)}
 			</div>
