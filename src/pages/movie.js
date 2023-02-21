@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ArrowLeftIcon, FilmIcon } from "@heroicons/react/solid";
 import { InfinitySpin } from "react-loader-spinner";
+import { toast, Toaster } from "react-hot-toast";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 const url_image = "https://image.tmdb.org/t/p/original";
@@ -22,13 +23,6 @@ const Movie = () => {
 
 	const randomPage = Math.floor(Math.random() * 500) + 1;
 
-	useEffect(() => {
-		document.body.style.overflow = "hidden";
-		return () => {
-			document.body.style.overflow = "unset";
-		};
-	}, []);
-
 	const getMovies = () => {
 		axios
 			.get(
@@ -41,7 +35,7 @@ const Movie = () => {
 					];
 
 				if (
-					randomMovie.backdrop_path &&
+					randomMovie?.backdrop_path &&
 					randomMovie.original_language === "en"
 				) {
 					const posibleMovies = response.data.results
@@ -52,7 +46,6 @@ const Movie = () => {
 						.sort(() => Math.random() - 0.5)
 						.slice(0, 3);
 
-					//Add the random movie to the posible movies and shuffle the array
 					posibleMovies.push(randomMovie);
 					posibleMovies.sort(() => Math.random() - 0.5);
 
@@ -75,6 +68,36 @@ const Movie = () => {
 		getMovies();
 	};
 
+	const handleSelectMovie = selected_movie => {
+		if (selected_movie === movie.title) {
+			toast.success("¡Correcto! 🎉", {
+				position: "top-center",
+				style: {
+					borderRadius: "10px",
+					background: "#48BB78",
+					color: "#fff",
+				},
+			});
+
+			setTimeout(() => {
+				handleNextMovie();
+			}, 2000);
+		} else {
+			toast.error("¡Incorrecto! 😢", {
+				position: "top-center",
+				style: {
+					borderRadius: "10px",
+					background: "#F56565",
+					color: "#fff",
+				},
+			});
+
+			setTimeout(() => {
+				handleNextMovie();
+			}, 1000);
+		}
+	};
+
 	return (
 		<div className="bg-yellow-500 w-screen h-screen px-4">
 			<Head>
@@ -89,14 +112,6 @@ const Movie = () => {
 					<ArrowLeftIcon className="h-6 w-6" /> Volver
 				</button>
 			</Link>
-
-			<button
-				onClick={handleNextMovie}
-				className="absolute max-w-max max-h-max top-4 right-4 lg:bottom-8 lg:right-8 z-50 bg-white text-gray-900 font-semibold text-sm py-4 px-4 rounded-xl flex gap-2 items-center"
-			>
-				<FilmIcon className="h-6 w-6" /> Siguiente película
-			</button>
-
 			<div className="flex flex-col gap-14 items-center justify-center h-screen">
 				{loading ? (
 					<div className="w-screen h-screen flex items-center justify-center">
@@ -110,10 +125,11 @@ const Movie = () => {
 							alt={`${url_image}${movie.backdrop_path}`}
 							className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-3xl"
 						/>
-						<div className="flex flex-col lg:flex-row gap-3 lg:gap-7">
+						<div className="flex flex-col lg:flex-row gap-6 lg:gap-7">
 							{posibleMovies.map(movie => (
 								<button
 									key={movie.id}
+									onClick={() => handleSelectMovie(movie.title)}
 									className="bg-white text-gray-900 font-semibold text-sm px-4 py-4 rounded-xl shadow-3xl"
 								>
 									{movie.title}
@@ -129,9 +145,16 @@ const Movie = () => {
 							alt="Error 404"
 							className="md:max-w-2xl lg:max-w-4xl rounded-xl shadow-3xl"
 						/>
+						<button
+							onClick={handleNextMovie}
+							className="bg-white text-gray-900 font-semibold text-sm py-4 px-4 rounded-xl flex gap-2 items-center"
+						>
+							<FilmIcon className="h-6 w-6" /> Siguiente película
+						</button>
 					</>
 				)}
 			</div>
+			<Toaster />
 		</div>
 	);
 };
