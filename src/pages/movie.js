@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { ArrowLeftIcon, FilmIcon } from "@heroicons/react/solid";
+import { ArrowLeftIcon, FilmIcon, HeartIcon } from "@heroicons/react/solid";
 import { InfinitySpin } from "react-loader-spinner";
 import { toast, Toaster } from "react-hot-toast";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -32,6 +32,7 @@ const Movie = () => {
 	const [posibleMovies, setPosibleMovies] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [score, setScore] = useState(0);
+	const [lifes, setLifes] = useState(3);
 
 	const { gender_id } = router.query;
 
@@ -100,6 +101,8 @@ const Movie = () => {
 				setScore(score + 1);
 			}, 2000);
 		} else {
+			setLifes(lifes - 1);
+
 			toast.error("¡Incorrecto! 😢", {
 				position: "top-center",
 				style: {
@@ -115,6 +118,12 @@ const Movie = () => {
 			}, 1000);
 		}
 	};
+
+	useEffect(() => {
+		if (lifes === 0) {
+			router.push("/");
+		}
+	}, [lifes]);
 
 	return (
 		<div className="bg-yellow-500 w-screen h-screen px-4">
@@ -134,6 +143,11 @@ const Movie = () => {
 
 				{movie.backdrop_path && (
 					<div className="flex items-center gap-5 absolute max-w-max max-h-max top-4 right-4 lg:bottom-8 lg:right-8 z-50">
+						<div className="flex gap-2">
+							{[...Array(lifes)].map((life, index) => (
+								<HeartIcon key={index} className="h-6 w-6 text-red-500" />
+							))}
+						</div>
 						<h1 className="text-gray-900 font-extrabold">{score}</h1>
 						<CountdownCircleTimer
 							isPlaying
@@ -141,7 +155,11 @@ const Movie = () => {
 							duration={10}
 							colors={["#22c55e", "#f97316", "#ca8a04", "#b91c1c"]}
 							colorsTime={[10, 6, 3, 0]}
-							onComplete={() => handleNextMovie()}
+							onComplete={() => {
+								setLifes(lifes - 1);
+
+								handleNextMovie();
+							}}
 						>
 							{renderTime}
 						</CountdownCircleTimer>
