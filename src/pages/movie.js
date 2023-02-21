@@ -113,9 +113,7 @@ const Movie = () => {
 				duration: 1000,
 			});
 
-			setTimeout(() => {
-				router.push("/");
-			}, 1000);
+			handleNextMovie();
 		}
 	};
 
