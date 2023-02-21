@@ -21,7 +21,7 @@ const renderTime = ({ remainingTime }) => {
 
 	return (
 		<div className="timer">
-			<div className="text-gray-900">{remainingTime}</div>
+			<div className="text-gray-900 font-bold">{remainingTime}</div>
 		</div>
 	);
 };
@@ -31,6 +31,7 @@ const Movie = () => {
 	const [movie, setMovie] = useState({});
 	const [posibleMovies, setPosibleMovies] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [score, setScore] = useState(0);
 
 	const { gender_id } = router.query;
 
@@ -94,6 +95,7 @@ const Movie = () => {
 
 			setTimeout(() => {
 				handleNextMovie();
+				setScore(score + 1);
 			}, 2000);
 		} else {
 			toast.error("¡Incorrecto! 😢", {
@@ -103,10 +105,11 @@ const Movie = () => {
 					background: "#F56565",
 					color: "#fff",
 				},
+				duration: 1000,
 			});
 
 			setTimeout(() => {
-				handleNextMovie();
+				router.push("/");
 			}, 1000);
 		}
 	};
@@ -128,7 +131,8 @@ const Movie = () => {
 				</Link>
 
 				{movie.backdrop_path && (
-					<div className="absolute max-w-max max-h-max top-4 right-4 lg:bottom-8 lg:right-8 z-50">
+					<div className="flex items-center gap-5 absolute max-w-max max-h-max top-4 right-4 lg:bottom-8 lg:right-8 z-50">
+						<h1 className="text-gray-900 font-extrabold">{score}</h1>
 						<CountdownCircleTimer
 							isPlaying
 							size={65}
