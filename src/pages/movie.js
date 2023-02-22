@@ -8,7 +8,7 @@ import { ArrowLeftIcon, FilmIcon, HeartIcon } from "@heroicons/react/solid";
 import { InfinitySpin } from "react-loader-spinner";
 import { toast, Toaster } from "react-hot-toast";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { url, url_image } from "@/global/constants";
+import { API_KEY, url, url_image } from "@/global/constants";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 const renderTime = ({ remainingTime }) => {
@@ -38,7 +38,7 @@ const Movie = () => {
 	const getMovies = () => {
 		axios
 			.get(
-				`${url}discover/movie?api_key=${process.env.API_KEY}&with_genres=${gender_id}&language=es-ES&page=${randomPage}`
+				`${url}discover/movie?api_key=${API_KEY}&with_genres=${gender_id}&language=es-ES&page=${randomPage}`
 			)
 			.then(response => {
 				const randomMovie =
