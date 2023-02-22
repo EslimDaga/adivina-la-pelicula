@@ -41,6 +41,8 @@ const Home = () => {
 		};
 	}, []);
 
+	console.log(process.env.API_KEY);
+
 	useEffect(() => {
 		const randomPage = Math.floor(Math.random() * 500) + 1;
 
