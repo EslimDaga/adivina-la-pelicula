@@ -9,10 +9,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import axios from "axios";
 import "react-lazy-load-image-component/src/effects/blur.css";
-
-const url_image = "https://image.tmdb.org/t/p/original";
-const url = "https://api.themoviedb.org/3/movie/popular";
-const url_genders = "https://api.themoviedb.org/3/genre/movie/list";
+import { url, url_image } from "@/global/constants";
 
 const ImageGradient = styled.div`
 	position: absolute;
@@ -48,11 +45,11 @@ const Home = () => {
 		const randomPage = Math.floor(Math.random() * 500) + 1;
 
 		const getMovies = axios.get(
-			`${url}?api_key=596241b05bdf73505bf12b0b05225055&language=es-ES&page=${randomPage}`
+			`${url}movie/popular?api_key=596241b05bdf73505bf12b0b05225055&language=es-ES&page=${randomPage}`
 		);
 
 		const getGenders = axios.get(
-			`${url_genders}?api_key=596241b05bdf73505bf12b0b05225055&language=es-ES`
+			`${url}genre/movie/list?api_key=596241b05bdf73505bf12b0b05225055&language=es-ES`
 		);
 
 		getMovies.then(response => {

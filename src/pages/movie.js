@@ -8,11 +8,8 @@ import { ArrowLeftIcon, FilmIcon, HeartIcon } from "@heroicons/react/solid";
 import { InfinitySpin } from "react-loader-spinner";
 import { toast, Toaster } from "react-hot-toast";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { url, url_image } from "@/global/constants";
 import "react-lazy-load-image-component/src/effects/blur.css";
-
-const url_image = "https://image.tmdb.org/t/p/original";
-const url_movies_by_gender = "https://api.themoviedb.org/3/discover/movie";
-const url_open_ai = "https://api.openai.com/v1/completions";
 
 const renderTime = ({ remainingTime }) => {
 	if (remainingTime === 0) {
@@ -41,7 +38,7 @@ const Movie = () => {
 	const getMovies = () => {
 		axios
 			.get(
-				`${url_movies_by_gender}?api_key=596241b05bdf73505bf12b0b05225055&with_genres=${gender_id}&language=es-ES&page=${randomPage}`
+				`${url}discover/movie?api_key=596241b05bdf73505bf12b0b05225055&with_genres=${gender_id}&language=es-ES&page=${randomPage}`
 			)
 			.then(response => {
 				const randomMovie =
