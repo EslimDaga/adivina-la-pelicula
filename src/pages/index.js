@@ -103,7 +103,7 @@ const Home = () => {
 	return (
 		<div className="bg-yellow-500">
 			<Head>
-				<title>Películas con emojis 🥳</title>
+				<title>Adivina la película 🎬</title>
 			</Head>
 			{loading ? (
 				<div className="w-screen h-screen flex items-center justify-center">
@@ -134,7 +134,7 @@ const Home = () => {
 					)}
 					<div className="fixed flex flex-col gap-4 items-center justify-center w-full h-full top-0">
 						<h1 className="text-3xl lg:text-6xl font-extrabold text-white text-center px-4">
-							Películas con emojis 🥳
+							Adivina la película 🎬
 						</h1>
 						<p className="text-1xl lg:text-3xl font-normal text-white text-center px-4">
 							¡Descubre cuál es la película con solo emojis!

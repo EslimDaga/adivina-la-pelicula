@@ -126,7 +126,7 @@ const Movie = () => {
 	return (
 		<div className="bg-yellow-500 w-screen h-screen px-4">
 			<Head>
-				<title>Películas con emojis 🥳</title>
+				<title>Adivina la película 🎬</title>
 			</Head>
 
 			<div>

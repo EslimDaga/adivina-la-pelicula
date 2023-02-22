@@ -16,7 +16,7 @@ export default function Document() {
 				/>
 				<meta
 					name="description"
-					content="📱🎥🔍 ¡Descubre cuál es tu película favorita con solo emojis! Con nuestro producto digital, podrás adivinar películas mientras te diviertes. Simplemente elige los emojis que mejor representen la película que tienes en mente y déjanos adivinar qué es. ¿Estás listo para un juego emocionante? 🎬🕵️‍♀️💡"
+					content="📱🎥🔍 ¿Eres un experto en películas? Pone a prueba tu conocimiento con nuestro nuevo juego de adivinar películas con una sola imagen. Te mostraremos una imagen de una película y tendrás que adivinar de qué se trata. Desde las clásicas hasta las últimas películas de éxito, este juego es una divertida y fácil manera de demostrar tu conocimiento. ¿Serás capaz de adivinarla? Así que sientate, pon un poco de palomitas y prepárate para el gran reto de tu conocimiento cinematográfico. 🎬🕵️‍♀️💡"
 				/>
 			</Head>
 			<body>
