@@ -137,7 +137,7 @@ const Home = () => {
 							Adivina la película 🎬
 						</h1>
 						<p className="text-1xl lg:text-3xl font-normal text-white text-center px-4">
-							¡Descubre cuál es la película con solo emojis!
+							¡Descubre cuál es la película!
 						</p>
 						<ReactSelect
 							className="w-96 mx-6"
