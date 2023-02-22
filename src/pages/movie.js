@@ -38,7 +38,7 @@ const Movie = () => {
 	const getMovies = () => {
 		axios
 			.get(
-				`${url}discover/movie?api_key=596241b05bdf73505bf12b0b05225055&with_genres=${gender_id}&language=es-ES&page=${randomPage}`
+				`${url}discover/movie?api_key=${process.env.API_KEY}&with_genres=${gender_id}&language=es-ES&page=${randomPage}`
 			)
 			.then(response => {
 				const randomMovie =

@@ -45,11 +45,11 @@ const Home = () => {
 		const randomPage = Math.floor(Math.random() * 500) + 1;
 
 		const getMovies = axios.get(
-			`${url}movie/popular?api_key=596241b05bdf73505bf12b0b05225055&language=es-ES&page=${randomPage}`
+			`${url}movie/popular?api_key=${process.env.API_KEY}&language=es-ES&page=${randomPage}`
 		);
 
 		const getGenders = axios.get(
-			`${url}genre/movie/list?api_key=596241b05bdf73505bf12b0b05225055&language=es-ES`
+			`${url}genre/movie/list?api_key=${process.env.API_KEY}&language=es-ES`
 		);
 
 		getMovies.then(response => {
